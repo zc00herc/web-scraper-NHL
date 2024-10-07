@@ -50,9 +50,6 @@ seasonyears = [2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,
 scores = ["All", "Tied", "Leading", "Trailing", "Within 1", "Up 1", "Down 1"]
 positions = ["Skaters", "Forwards", "Center", "Left Wing", "Right Wing", "Defensemen", "Goalie"]
 
-URL = 'http://www.naturalstattrick.com/playerteams.php?fromseason={}&thruseason={}&stype={}&sit={}&score={}&stdoi={}&rate={}&team={}&pos={}&loc={}&toi={}&gpfilt={}&fd={}&td={}td&tgp={}&lines={}&draftteam={}'.format(
- fromseason, thruseason, seasontype, situation, score, statgroup, rate, team, position, location, toi, gpfilt, fd, td, tgp, lines, draftteam)
-
 def radio_used():
     print(radio_state.get())
 
@@ -61,7 +58,12 @@ def listbox_used(event):
     print(listbox.get(listbox.curselection()))
 
 def fetch_data():
-    pass
+    url = 'http://www.naturalstattrick.com/playerteams.php?fromseason={}&thruseason={}&stype={}&sit={}&score={}&stdoi={}&rate={}&team={}&pos={}&loc={}&toi={}&gpfilt={}&fd={}&td={}td&tgp={}&lines={}&draftteam={}'.format(
+        fromseason, thruseason, seasontype, situation, score, statgroup, rate, team, position, location, toi, gpfilt,
+        fd, td, tgp, lines, draftteam)
+    df = pandas.read_html(url,header=0,index_col=0,na_values=["-"])[0]
+    print(df)
+
 window = Tk()
 window.title("Data Selection")
 window.config(width=500,height=500)
@@ -197,9 +199,9 @@ tgp_entry.grid(column=1,row=15)
 # Button
 submit = Button()
 submit.config(text="Fetch Data",command=fetch_data)
+submit.grid(column=0,row=18,columnspan=3)
 
-df = pandas.read_html(URL,header=0,index_col=0,na_values=["-"])[0]
-print(df)
+# print(df)
 
 
 window.mainloop()
