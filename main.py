@@ -1,13 +1,14 @@
 import pandas
 from tkinter import *
+import json
 
 # URL Parameters
-fromseason = 20202021
-thruseason = 20202021
+fromseason = 20232024
+thruseason = 20232024
 # 1 = preseason, 2 = Regular Season, 3 = playoffs
-seasontype = 3
+seasontype = 2
 # All Strengths = all, Even Strength = ev, 5v5, 5v5 Score & Venue Adjusted = sva, Power Play=pp, 5 on 4 PP=5v4, Penalty Kill=pk, 4 on 5 PK=4v5, 3 on 3=3v3, With Empty Net=enf, Against Empty Net=ena
-situation = 'pp'
+situation = 'all'
 # All=all, Tied=tied, Leading=u, Trailing=d, Within 1=w1, Up 1=u1, Down 1=d1
 score = 'all'
 # Goalie = g, individual = std, bios = bio, on-ice = oi
@@ -19,7 +20,7 @@ rate = 'n'
 # Minnesota = MIN, Montreal = MTL, Nashville = NAS, New Jersey = NJ, NY Islanders = NYI, NY Rangers = NYR
 # Ottawa = OTT, Philadelphia = PHI, Phoenix = PHX, Pittsburgh = PIT, Quebec = QUE, San Jose = SJ, St. Louis = STL
 # Tampa Bay = TB, Toronto = TOR, Vancouver = VAN, Winnipeg = WPG, Washington = WSH
-team = 'WPG'
+team = 'ALL'
 # Skaters = S, Forwards = F, Center = C, Left Wing = L, Right Wing = R, Defensemen = D, Goalie = G
 position = 'S'
 # Home and Away = B, Home = H, Away = A
@@ -35,7 +36,7 @@ td  = ''
 tgp = ''
 # splits players out by team they are playing for if they played for multiple teams
 # Combine = single, Split = multi
-lines = 'single'
+lines = 'multi'
 # same list as above
 draftteam = 'ALL'
 
@@ -199,7 +200,7 @@ submit = Button()
 submit.config(text="Fetch Data",command=fetch_data)
 
 df = pandas.read_html(URL,header=0,index_col=0,na_values=["-"])[0]
-print(df)
+df.to_csv("data.csv")
 
 
-window.mainloop()
+# window.mainloop()
